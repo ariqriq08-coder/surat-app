@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Mazuu</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="flowers"></div>
+<div class="container">
+
+    <div class="envelope" onclick="openLetter()">
+        <div class="flap"></div>
+
+        <div class="letter">
+            <p id="text"></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const text = `{{ isi }}`;
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 25);
+    }
+}
+
+function openLetter() {
+    document.querySelector(".envelope").classList.add("open");
+    setTimeout(typeWriter, 500);
+}
+</script>
+
+</body>
+</html>
+</div>
