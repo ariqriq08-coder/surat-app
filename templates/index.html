@@ -6,12 +6,6 @@
     <title>Surat</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff758c;
-            --secondary-color: #ff5e78;
-            --bg-gradient: linear-gradient(135deg, #fceabb 0%, #f8b500 0%, #f78181 100%);
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -19,36 +13,40 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: var(--bg-gradient);
+            /* Menggunakan Background Gradasi dari kode sebelumnya */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
         }
 
-        /* Container Utama */
         .wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
+            height: 100vh;
         }
 
-        /* Amplop */
+        /* Amplop dengan sentuhan Glassmorphism sedikit transparan */
         .envelope-wrapper {
             position: relative;
             width: 300px;
             height: 200px;
-            background: white;
+            background: rgba(255, 255, 255, 0.2); /* Transparan */
+            backdrop-filter: blur(5px);
             border-radius: 0 0 10px 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .envelope-wrapper:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
         }
 
+        /* Bagian Badan Amplop */
         .envelope-wrapper::before {
             content: "";
             position: absolute;
@@ -67,7 +65,7 @@
             height: 0;
             border-left: 150px solid transparent;
             border-right: 150px solid transparent;
-            border-top: 110px solid var(--primary-color);
+            border-top: 110px solid #ff758c;
             transform-origin: top;
             transition: transform 0.6s ease;
             z-index: 3;
@@ -80,15 +78,17 @@
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            height: 90%;
+            height: 80%;
             background: #fffdf5;
             padding: 20px;
             box-sizing: border-box;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             transition: 0.6s;
             z-index: 1;
-            border: 2px solid #fceabb;
             border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .letter-text {
@@ -97,20 +97,21 @@
             color: #444;
             text-align: center;
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Animasi Buka */
+        /* Efek saat amplop Terbuka */
         .envelope-wrapper.open .flap {
             transform: rotateX(180deg);
             z-index: 0;
         }
 
         .envelope-wrapper.open .letter {
-            transform: translate(-50%, -150px);
+            transform: translate(-50%, -160px); /* Surat naik ke atas */
             height: 250px;
-            z-index: 4;
+            z-index: 5;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         /* Partikel Hati */
@@ -121,46 +122,45 @@
             user-select: none;
             pointer-events: none;
             animation: fly 3s linear forwards;
-            z-index: 5;
-            opacity: 0;
+            z-index: 10;
         }
 
         @keyframes fly {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-300px) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-400px) rotate(360deg); opacity: 0; }
         }
 
-        /* Tulisan Petunjuk */
         .hint {
             position: absolute;
-            bottom: -50px;
+            bottom: -60px;
+            width: 100%;
+            text-align: center;
             color: white;
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             opacity: 0.8;
             animation: blink 1.5s infinite;
         }
 
-        @keyframes blink {
-            50% { opacity: 0.3; }
-        }
+        @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
-        <div class="envelope-wrapper" onclick="openLetter(this)">
+        <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
             <div class="flap"></div>
             <div class="letter">
                 <p class="letter-text" id="text"></p>
             </div>
-            <div class="hint">Klik untuk Membuka ❤️</div>
+            <div class="hint">Klik Amplop untuk Membuka ❤️</div>
         </div>
     </div>
 
     <script>
-        const message = "Untuk Mazuu sayang... Kamu tau nggak? Setiap kali aku lihat namamu, hatiku rasanya kayak lagi denger lagu favorit. Makasih ya sudah sabar dan selalu ada. Aku sayang kamu lebih dari yang bisa dijelaskan oleh ribuan kode Python ini. Tetap di sini ya? ❤️";
+        // Masukkan kata-kata favoritmu di sini
+        const message = "Untuk Mazuu... Sebenarnya surat ini cuma cara kecilku untuk bilang kalau kehadiranmu itu seperti pelangi setelah hujan; menenangkan dan selalu indah. Terima kasih sudah menjadi bagian dari hariku. Aku sayang kamu lebih dari yang bisa kutuliskan di sini. ❤️";
         
         let i = 0;
         let isOpened = false;
@@ -169,12 +169,11 @@
             const heart = document.createElement("div");
             heart.classList.add("heart");
             heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "%";
-            heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            heart.style.left = (Math.random() * 80 + 10) + "%"; // Agar tetap di tengah
+            heart.style.top = "50%";
+            heart.style.animationDuration = (Math.random() * 2 + 1) + "s";
             
-            const wrapper = document.querySelector(".wrapper");
-            wrapper.appendChild(heart);
-
+            document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 3000);
         }
 
@@ -186,20 +185,21 @@
             }
         }
 
-        function openLetter(el) {
-            if (isOpened) return; // Mencegah klik ganda
+        function openLetter() {
+            if (isOpened) return;
             
             isOpened = true;
-            el.classList.add("open");
-            document.querySelector(".hint").style.display = "none";
+            const env = document.getElementById("envelope");
+            env.classList.add("open");
+            document.querySelector(".hint").style.opacity = "0";
 
-            // Munculkan banyak hati
-            for(let h=0; h<15; h++) {
-                setTimeout(createHeart, h * 100);
+            // Ledakan hati
+            for(let h=0; h<20; h++) {
+                setTimeout(createHeart, h * 150);
             }
 
-            // Mulai ngetik setelah surat naik
-            setTimeout(typeWriter, 800);
+            // Mulai mengetik
+            setTimeout(typeWriter, 1000);
         }
     </script>
 </body>
