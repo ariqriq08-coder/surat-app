@@ -1,16 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Buat Surat</title>
+<meta charset="UTF-8">
+<title>Untuk Mazuu</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<h2>Buat Surat 💌</h2>
+<div class="flowers"></div>
+<div class="container">
 
-<form action="/surat" method="POST">
-    <textarea name="surat" placeholder="Tulis suratmu..." rows="5" cols="30"></textarea><br><br>
-    <button type="submit">Kirim</button>
-</form>
+    <div class="envelope" onclick="openLetter()">
+        <div class="flap"></div>
+
+        <div class="letter">
+            <p id="text"></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const text = `{{ isi }}`;
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 25);
+    }
+}
+
+function openLetter() {
+    document.querySelector(".envelope").classList.add("open");
+    setTimeout(typeWriter, 500);
+}
+</script>
 
 </body>
 </html>
+</div>
