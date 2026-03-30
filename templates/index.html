@@ -1,44 +1,115 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Untuk Mazuu</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim Pesan untuk Mazuu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            font-family: 'Poppins', sans-serif;
+        }
 
+        .main-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+            resize: none;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        textarea:focus {
+            outline: 2px solid #ff758c;
+        }
+
+        button {
+            background: #ff758c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #ff5e78;
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        .heart-icon {
+            color: #fff;
+            font-size: 30px;
+            margin-bottom: 10px;
+            animation: beat 1.2s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
 <body>
 
-<div class="flowers"></div>
-<div class="container">
+    <div class="main-card">
+        <div class="heart-icon">❤</div>
+        <h1>Untuk Mazuu</h1>
+        <p>Tuliskan pesan cintamu di bawah ini dan biarkan keajaiban terjadi...</p>
 
-    <div class="envelope" onclick="openLetter()">
-        <div class="flap"></div>
-
-        <div class="letter">
-            <p id="text"></p>
-        </div>
+        <form action="/surat" method="POST">
+            <textarea 
+                name="surat" 
+                rows="5" 
+                placeholder="Ketik pesan manismu di sini..." 
+                required></textarea>
+            <br>
+            <button type="submit">Buat Surat Cinta ✨</button>
+        </form>
     </div>
-
-</div>
-
-<script>
-const text = `{{ isi }}`;
-let i = 0;
-
-function typeWriter() {
-    if (i < text.length) {
-        document.getElementById("text").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 25);
-    }
-}
-
-function openLetter() {
-    document.querySelector(".envelope").classList.add("open");
-    setTimeout(typeWriter, 500);
-}
-</script>
 
 </body>
 </html>
-</div>
