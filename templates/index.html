@@ -18,7 +18,9 @@
             </div>
         </div>
     </div>
-    
+    <audio id="bgMusic" loop>
+    <source src="{{ url_for('static', filename='musicmp3.mp3') }}" type="audio/mpeg">
+</audio>
     <script>
         // Pesan teks tanpa animasi hati
         const message = "Assalamaualaikum hai mazu… ahahahha sehat? Mudah mudahan sehat selalu ya, selamat semhas yg kemarin ya mazu ariq gatau mau kasi apa, mau nitip ke syifa gaenak udh selalu nitip , oiya nanti ada ujian lagi kan semangat ya mazu. Ariq ga paham kuliahnya mazu tu kyk gimana maaf kalo ariq banya tanya jadinya ya. Emm bingung mau bilang apa, oiya akhir2 ini komunikasi ariq jadi kurang ya mazu, ya sebenarnya ga masalah jga si orang ariq bukan siapa siapanya mazu jga kan, ahahah ariq gatau bilang apa mazu mati kata kali ni, emm skali lagi maaf mazu kalo ada ganggu2 waktu mazu. Trus apalagi yaa, oiyaa ariq gatau mazu orgnya kyk gimana, org kita blm pernah ketemu kan, ahahha nanti2 lah kalo emg jalannya ketemu pasti ketemu. Emm haa semangat trus lah ya mazu emang cape ya Namanya dunia kalau kata aldi taher “ dunia emg tempatnya capek, nanti udh gak cape kalau dah di surga” haa gitulah kira2. Just do it mazuu, keep spirit yaa.";
@@ -35,16 +37,21 @@
         }
 
         function openLetter() {
-            if (isOpened) return;
-            isOpened = true;
+    if (isOpened) return;
+    isOpened = true;
 
-            // Membuka amplop (mengaktifkan class .open di style.css kamu)
-            const envelope = document.getElementById("envelope");
-            envelope.classList.add("open");
+    // Membuka amplop
+    const envelope = document.getElementById("envelope");
+    envelope.classList.add("open");
 
-            // Mulai ngetik setelah flap terbuka
-            setTimeout(typeWriter, 800);
-        }
+    // ▶️ TAMBAHKAN INI (musik)
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.5;
+    music.play();
+
+    // Mulai ngetik
+    setTimeout(typeWriter, 800);
+}
     </script>
 
 </body>
